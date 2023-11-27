@@ -253,7 +253,9 @@ class Agent:
                 v1 = self.critic_1(st, mu).numpy()[0][0]
                 v2 = self.critic_2(st, mu).numpy()[0][0]
                 v = min(v1, v2)
-                values.append(v)
+                statev = self.value(st).numpy()[0][0]
+                a = v - statev
+                values.append(a)
                 if not Test:
                     self.remember_critic(obs[-1], act_sequence[-1], r, s, d)
                 rewards.append(r)
